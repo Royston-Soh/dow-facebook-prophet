@@ -1,4 +1,4 @@
-# Time series forecasting For Dow Jones Industrial Average (using Facebook Prophet)
+# Time series forecasting for Dow Jones Industrial Average (using Facebook Prophet)
 
 ```bash
 library(xts)
