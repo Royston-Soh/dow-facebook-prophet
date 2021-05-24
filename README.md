@@ -17,6 +17,7 @@ getSymbols('DJI',
 head(DJI)
 tail(DJI)
 ```
+!https://github.com/Royston-Soh/dow-facebook-prophet/blob/main/pic/1%20dow_head_tail.jpg
 
 ### Here’s the code for saving as csv or downloading all the data available
 ```bash
