@@ -17,7 +17,7 @@ getSymbols('DJI',
 head(DJI)
 tail(DJI)
 ```
-!https://github.com/Royston-Soh/dow-facebook-prophet/blob/main/pic/1%20dow_head_tail.jpg
+![](https://github.com/Royston-Soh/dow-facebook-prophet/blob/main/pic/1%20dow_head_tail.jpg)
 
 ### Here’s the code for saving as csv or downloading all the data available
 ```bash
@@ -36,6 +36,7 @@ We observe an upward multiplicative (exponential) trend. As prophet library make
 chartSeries(DJI,
             theme=chartTheme('white'))
 ```
+![](https://github.com/Royston-Soh/dow-facebook-prophet/blob/main/pic/2%20chartseries.jpg)
          
 ## Data Preparation: Remove missing values and assign variables ds and y for prophet model
 ```bash
@@ -61,7 +62,7 @@ View(df)
 qplot(ds,y,data=df,
       main='Dow Jones Industrial Average in log scale')
 ```
-
+![](https://github.com/Royston-Soh/dow-facebook-prophet/blob/main/pic/3%20log%20scale.jpg)
 ## Split the data to training and test set
 Let's predict and validate for the last 252 trading days
 ```bash
@@ -89,7 +90,7 @@ We observe a long term upward trend, as well as seasonality where the index peak
 ```bash
 prophet_plot_components(m,forecast)
 ```
-
+![](https://github.com/Royston-Soh/dow-facebook-prophet/blob/main/pic/4%20forecast_components.jpg)
 ## Model Performance
 We observe an overall linear upward trend, with R-squared at 0.9833. Up to 99.73% of the variation in predicted values can be explained by the variation in actual values in the prediction model. However, this measures the goodness-of-fit and does not provide information on the accuracy of the model.
 
@@ -100,7 +101,8 @@ plot(actuals,pred)
 abline(lm(pred~actuals),col='red',lwd=2)
 summary(lm(pred~actuals))
 ```
-
+![](https://github.com/Royston-Soh/dow-facebook-prophet/blob/main/pic/5%20model%20performance.jpg)
+![](https://github.com/Royston-Soh/dow-facebook-prophet/blob/main/pic/6%20R%20sq.jpg)
 ## Residuals Plot
 Create dataframe for residuals
 ```bash
@@ -119,9 +121,14 @@ qplot(ds,residuals,data=df_residuals,
   geom_vline(xintercept = (max(ds)-252), 
              color = "blue")
 ```
-
+![](https://github.com/Royston-Soh/dow-facebook-prophet/blob/main/pic/7%20plot%20for%20forecasts.jpg)
+![](https://github.com/Royston-Soh/dow-facebook-prophet/blob/main/pic/8%20plot%20for%20residuals.jpg)
 ## Model accuracy
 We notice that the accuracy metrics of the model deteriorates when we compare the validation set against the training set, suggestive of overfitting. This could be due to the highly volatile nature of the stock index, where the variance of the residuals are not constant, rendering the model which uses the least squares method less accurate.
+
+![](https://github.com/Royston-Soh/dow-facebook-prophet/blob/main/pic/9%20accuracy_train.jpg)
+![](https://github.com/Royston-Soh/dow-facebook-prophet/blob/main/pic/10%20accuracy_valid.jpg)
+
 ```bash
 #Performance metrics for training set
 predicted_train=forecast$yhat[1:(length(forecast$yhat)-252)]
@@ -151,4 +158,5 @@ qplot(ds,Residuals,data=df_residuals,
   geom_vline(xintercept = (max(ds)-252), 
              color = "blue")
 ```
-
+![](https://github.com/Royston-Soh/dow-facebook-prophet/blob/main/pic/11%20rescale_1.jpg)
+![](https://github.com/Royston-Soh/dow-facebook-prophet/blob/main/pic/12%20rescale_2.jpg)
