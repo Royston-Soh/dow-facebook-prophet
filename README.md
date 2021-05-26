@@ -12,7 +12,8 @@ library(forecast)
 
 ```bash
 getSymbols('DJI',
-           from='2008-01-01')
+           from='2008-01-01',
+           to='2021-05-22')
 
 head(DJI)
 tail(DJI)
