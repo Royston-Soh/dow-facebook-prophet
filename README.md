@@ -35,10 +35,10 @@ View(df_xts)
 
 ## Plot the chart series
 We observe an upward multiplicative (exponential) trend. As prophet library makes time series forecast based on additive regression model, we need to do a log transformation to linearize the data using log transformation.
-‘’’bash
+```bash
 chartSeries(df_xts,
             theme=chartTheme('white')) 
-‘’’
+```
          
 ## Prepare dataframe with variables ds and y assigned for prophet model
 ```bash
