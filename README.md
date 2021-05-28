@@ -1,22 +1,22 @@
 # Time series forecasting For Dow Jones Industrial Average (using Facebook Prophet)
 
-‘’’bash
+```bash
 library(xts)
 library(quantmod)
 library(prophet)
 library(ggplot2)
 library(forecast)
 library(lubridate) 
-‘’’
+```
 
 ## Read historical data for Dow Jones Industrial Average (adjusted closing prices)
 
-‘’’bash
+```bash
 setwd("F:/My Files/R Studio/DOW S&P500")
 dow_data=read.csv('dow_data_v3.csv',header = T,sep = ',')
 head(dow_data)
 tail(dow_data) 
-‘’’
+```
 
 ## Standardize the dates and prepare the data for conversion to time series xts format
 ```bash
