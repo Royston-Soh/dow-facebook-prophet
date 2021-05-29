@@ -116,7 +116,7 @@ qplot(ds,residuals,data=df_residuals,
 ![](https://github.com/Royston-Soh/dow-facebook-prophet/blob/main/pic/9%20plot%20residuals.jpg)
 
 ## Model accuracy
-We notice that the accuracy metrics of the model deteriorates when we compare the validation set against the training set, suggestive of overfitting. This could be due to the highly volatile nature of the stock index, where the variance of the residuals are not constant, rendering the model which uses the least squares method less accurate.
+We notice that the accuracy metrics of the model deteriorates when we compare the validation set against the training set, suggestive of overfitting. This could be due to the highly volatile nature of the stock index, where the variance of the residuals are not constant, rendering the model which uses the least squares method less accurate. Facebook Prophet is not that useful for predicting stock index in times of high volatility, also, the accuracy for forecasts deteriorates as we project further into the future (medium to long-term).
 ```bash
 #Performance metrics for training set
 predicted_train=forecast$yhat[1:(length(forecast$yhat)-252)]
