@@ -79,7 +79,7 @@ prophet_plot_components(m,forecast)
 ```
 
 ## Model Performance
-We observe an overall linear upward trend, with R-squared at 0.9833. Up to 99.73% of the variation in predicted values can be explained by the variation in actual values in the prediction model. However, this measures the goodness-of-fit and does not provide information on the accuracy of the model.
+We observe an overall linear upward trend, with R-squared at 0.9825. Up to 98.25% of the variation in predicted values can be explained by the variation in actual values in the prediction model. However, this measures the goodness-of-fit and does not provide information on the accuracy of the model.
 
 ```bash
 pred=forecast$yhat
