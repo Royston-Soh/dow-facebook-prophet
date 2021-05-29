@@ -1,5 +1,4 @@
-# Time series forecasting For Dow Jones Industrial Average (using Facebook Prophet)
-
+# Time series forecasting for Dow Jones Industrial Average (using Facebook Prophet)
 ```bash
 library(xts)
 library(quantmod)
@@ -10,7 +9,6 @@ library(lubridate)
 ```
 
 ## Read historical data for Dow Jones Industrial Average (adjusted closing prices)
-
 ```bash
 setwd("F:/My Files/R Studio/DOW S&P500")
 dow_data=read.csv('dow_data_v3.csv',header = T,sep = ',')
@@ -18,29 +16,26 @@ head(dow_data)
 tail(dow_data) 
 ```
 
-## Standardize the dates and prepare the data for conversion to time series xts format
+## Standardize the dates and prepare data for conversion to time series xts format, using from year 2008 onward
 ```bash
-dow_data$Date=dmy(dow_data$X)
+dow_data$Date=dmy(dow_data$X) #Standardize the dates using lubridate package
 
-df=data.frame(dow_data$DJI)
+df=data.frame(dow_data$DJI) #Prepare time series format
 rownames(df)=dow_data$Date
 colnames(df)=c('DJI')
-```
-## Let's use the data from year 2008 onward
-```bash
-df_xts=as.xts(df)
-df_xts=df_xts['2008/']
-View(df_xts)
+
+df_xts=as.xts(df) #Convert to xts format
+df_xts=df_xts['2008/'] #extract data frm 2008 onward
 ```
 
 ## Plot the chart series
-We observe an upward multiplicative (exponential) trend. As prophet library makes time series forecast based on additive regression model, we need to do a log transformation to linearize the data using log transformation.
+We observe an upward multiplicative (exponential) trend. As prophet library makes time series forecast based on additive regression trend model, we need to do a log transformation to linearize the data using log transformation.
 ```bash
 chartSeries(df_xts,
             theme=chartTheme('white')) 
 ```
          
-## Prepare dataframe with variables ds and y assigned for prophet model
+## Prepare dataframe with variables ds and y assigned for prophet model, perform log transformation
 ```bash
 df=data.frame(df_xts)
 df$ds=rownames(df)
@@ -48,23 +43,18 @@ ds=df$ds
 y=df$DJI
 df=data.frame(ds,y)
 df$ds=as.Date(df$ds)
-```
 
-## Log transformation
-```bash
 y=log(df$y)
 df=data.frame(ds,y)
 df$ds=as.Date(df$ds)
-```
 
-## Visualization of log transformed data
-```bash
 qplot(ds,y,data=df,
       main='Dow Jones Industrial Average in log scale')
 ```
 
 ## Split the data to training and test set
 Let's predict and validate for the last 252 trading days
+
 ```bash
 training_length=length(df$y)-252
 test_start=training_length+1
@@ -73,14 +63,11 @@ df_training=df[1:training_length,]
 df_test=df[test_start:length(df$y),] 
 ```
 
-## Specify the forecasting model using training data
+## Specify the forecasting model, and make furture prediction using training data
 ```bash
 m=prophet()
 m=fit.prophet(m,df_training) 
-```
 
-## Make future prediction for next 252 trading days
-```bash
 future=make_future_dataframe(m,periods=252)
 forecast=predict(m,future)
 ```
@@ -102,18 +89,17 @@ abline(lm(pred~actuals),col='red',lwd=2)
 summary(lm(pred~actuals))
 ```
 
-## Residuals Plot
-Create dataframe for residuals
+## Plot for forecast and residuals
 ```bash
+#Create dataframe for residuals
 residuals_m=df$y-forecast$yhat
 df_residuals=data.frame(df$ds,residuals_m)
 colnames(df_residuals)=c('ds','residuals') 
-```
 
-## Plot for forecast and residuals
-```bash
+#Forecast plot
 plot(m,forecast)
 
+#Residual plot
 qplot(ds,residuals,data=df_residuals,
       main='Plot of residuals in log scale')+
   geom_vline(xintercept = as.numeric(ymd(df_test[1,1])), 
