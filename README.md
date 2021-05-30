@@ -1,4 +1,5 @@
 # Time series forecasting for Dow Jones Industrial Average (using Facebook Prophet)
+In this post, we try to examine the usefulness of Facebook Prophet in forcasting stock market indices.
 ```bash
 library(xts)
 library(quantmod)
