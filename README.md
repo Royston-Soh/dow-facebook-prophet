@@ -77,8 +77,8 @@ future=make_future_dataframe(m,periods=252)
 forecast=predict(m,future)
 ```
 
-## Forecast components
-We observe a long term upward trend, as well as seasonality where the index peaks in the months of May and August and bottoms out in the months of March and November.
+## Forecast Components
+We observe a long term upward trend, as well as seasonality, where the index peaks in the months of May and August and bottoms out in the months of March and November. There is no weekly pattern being observed in the above plots.
 ```bash
 prophet_plot_components(m,forecast) 
 ```
